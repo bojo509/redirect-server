@@ -27,8 +27,7 @@ app.get('/:id', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({
-            status: error.response?.status,
-            data: error.response?.data
+            error: error.response?.data
         });
     }
 });

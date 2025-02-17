@@ -26,8 +26,13 @@ app.get('/:id', async (req, res) => {
             return res.redirect(response.data.url);
         }
     } catch (error) {
+        // Flatten the error response to prevent nesting
+        const errorMessage = error.response?.data?.error?.message || 'An error occurred';
         res.status(500).json({
-            error: error.response?.data
+            error: {
+                code: error.response?.status || 500,
+                message: errorMessage
+            }
         });
     }
 });
